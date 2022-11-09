@@ -11,7 +11,7 @@ class Cifar_nn(nn.Module):
         
         self.return_softmax = False
 
-        self.probDropout = 0.3
+        self.probDropout = 0.5
         self.batchNormInput = nn.LazyBatchNorm2d()
         self.conv1_1 = nn.LazyConv2d(64, 3)
         self.batchNorm1 = nn.LazyBatchNorm2d()

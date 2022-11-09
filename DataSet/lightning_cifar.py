@@ -19,13 +19,8 @@ class CIFARDataModule(pl.LightningDataModule):
         ])
 
     def setup(self, stage: Optional[str] = None):
-        # self.cifar_test = CIFAR100(self.data_dir, train=False, download=True, transform=self.transform)
         self.cifar_test = CIFAR10(self.data_dir, train=False, download=True, transform=self.transform)
-        # self.cifar_test =  torch.utils.data.Subset(self.cifar_test, range(5000, 9999))
-        # self.cifar_predict = CIFAR100(self.data_dir, train=False, download=True, transform=self.transform)
         self.cifar_predict = CIFAR10(self.data_dir, train=False, download=True, transform=self.transform)
-
-        # self.cifar_full = CIFAR100(self.data_dir, train=True, download=True, transform=self.transform)
         self.cifar_full = CIFAR10(self.data_dir, train=True, download=True, transform=self.transform)
 
     def train_dataloader(self):

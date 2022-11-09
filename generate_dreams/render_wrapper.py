@@ -32,7 +32,6 @@ class render_wrapper():
         args: 
         iterations: Tuple containing number of iterations we will optimize the image for
         opt_lr: Learning rate for the Adam optimizer
-        opt_wd: Weight decay for optimizer
         """
         
         self.dream_params = {}

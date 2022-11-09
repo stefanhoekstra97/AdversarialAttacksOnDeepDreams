@@ -15,7 +15,7 @@ def generate_dream(
     parametrization="tanh",
     penal_f = None,
     penal_factor=0.0,
-    limit_eps = 0.1
+    limit_eps = 1
 ):
     # unpack batch to tensor images and labels, create y boolean onehot encoded tensor.
     x:torch.Tensor
@@ -65,9 +65,6 @@ def generate_dream(
             other_logits = torch.masked_select(out, ~(onehot_y)).reshape((x.shape[0], 9))
 
             _target_loss = torch.sub(_initial_target_logits, dream_logits)
-            if torch.any(torch.le(_target_loss, -2)):
-                # print('stopped opt')
-                return 0
 
             if penal_f is not None:
                 _other_targets_loss = penal_f(other_logits, _initial_other_logits)
@@ -75,7 +72,6 @@ def generate_dream(
             else:
                 loss = _target_loss.mean()
             loss.backward()
-            # print(loss)
             return loss
 
         optimizer.step(closure)

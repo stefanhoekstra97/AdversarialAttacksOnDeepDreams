@@ -10,6 +10,10 @@ import foolbox as fb
 
 #Custom imports:
 from generate_dreams.render_wrapper import render_wrapper
+from models.cifar_nn import Cifar_nn
+from models.cifar_nn_nobn import Cifar_nn_nobn
+from models.mnist_nn import Mnist_nn
+from models.mnist_nn_nobn import Mnist_nn_nobn
 from utils import rescale
 
 # nn_archs: One of ["Fashion_mnist", "Mnist", "Cifar"]
@@ -22,11 +26,21 @@ class LitModelTrainer(pl.LightningModule):
         self.log_every_x = 19
         self.model_bounds = (0, 1)
         # # If no model is supplied, check architecture if given. Otherwise assume CIFAR.
+        if(model is not None):
+            self.model = model
+        else:
+            if(nn_arch == "Mnist"):
+                self.model = Mnist_nn()
+            elif(nn_arch == "Mnist-nobn"):
+                self.model = Mnist_nn_nobn()
+            elif nn_arch == "Cifar":
+                self.model = Cifar_nn()
+            elif nn_arch == "Cifar-nobn":
+                self.model = Cifar_nn_nobn()
+            else:
+                raise Exception("No suitable architecture defined.")
 
-        if model is None:
-            raise Exception("No model given?")
-
-        self.model = model()
+        self.model.eval()
 
         self.img_log_step = 0
         self.val_img_log_step = 0
@@ -45,9 +59,9 @@ class LitModelTrainer(pl.LightningModule):
 
         # Initialize foolbox model
         self.epsilons_adv = [adv_eps]
-        self.model.eval()
-        self.fmodel = fb.models.pytorch.PyTorchModel(model=self.model, bounds=self.model_bounds)
 
+        self.fmodel = fb.models.pytorch.PyTorchModel(model=self.model, bounds=self.model_bounds)
+       
         # Initialize dream generation if dream params are given, can be empty dict for no dream generation.
         self.dream_param_dict = dream_gen_dict
         if dream_gen_dict:
@@ -92,7 +106,11 @@ class LitModelTrainer(pl.LightningModule):
               }
 
         for k,v in dream_gen_dict.items():
-            log_param_dict["dream_" + k] = v
+            if "iterations" in k:
+                log_param_dict["dream_" + k] = v[-1]
+            else:
+                log_param_dict["dream_" + k] = v
+
         if self.attack is not None:
             for k,v in self.attack.__dict__.items():
                 if v:
@@ -117,6 +135,7 @@ class LitModelTrainer(pl.LightningModule):
         self.model.eval() # Start in eval mode for possibly dreams and/or adv. attack generation
 
         if(self.dream_param_dict):
+            x_all_cl = x.detach().clone()
             x_clone = x[0].detach().clone()
             x_dream = self.generate_dream_batch(batch)
 
@@ -131,7 +150,7 @@ class LitModelTrainer(pl.LightningModule):
                 diff_scaled = torch.sub(dreamscaled, basescaled)
 
                 self.logger.experiment.add_images("Dream image grid", torch.stack([basescaled, dreamscaled, rescale(diff_scaled, (0, diff_scaled.max() - diff_scaled.min())), rescale(diff_abs)]), global_step = self.img_log_step)
-                self.logger.experiment.add_scalar("L2 norm difference of dream", torch.linalg.vector_norm(torch.sub(dreamscaled, basescaled), ord=2), global_step = self.img_log_step)
+                self.logger.experiment.add_scalar("Mean L2 distance of dreams", torch.linalg.vector_norm(torch.sub(x_dream, x_all_cl), ord=2, dim=(-3, -2, -1)).mean(), global_step = self.img_log_step)
                 self.logger.experiment.add_scalar("max difference of dream",  diff_abs.max(), global_step = self.img_log_step)
                 self.logger.experiment.add_scalar("min difference of dream", diff_abs.min(), global_step = self.img_log_step)
 

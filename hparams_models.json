@@ -1,5 +1,5 @@
 {
-  "clean_training_bn":{	
+  "base_model_mnist":{	
     "hparams":{
       "early_stopping": true,
       "early_stop_monitor": "val_loss",
@@ -20,7 +20,7 @@
     }
   },
 
-  "clean_training_nobn":{	
+  "base_model_cifar":{	
     "hparams":{
       "early_stopping": true,
       "early_stop_monitor": "val_loss",
@@ -30,11 +30,11 @@
     },
 
     "model_params": {
-      "nn_arch": "Mnist-nobn",
+      "nn_arch": "Cifar",
       "with_adversarial": false,
-      "li_eps" : 0.3,
-      "l2_eps" : 4.2,
-      "opt_lrs": 1e-4,
+      "li_eps" : 0.03,
+      "l2_eps" : 1.6,
+      "opt_lrs": 1e-3,
       "opt_wd": 0
     },
     "dream_params": {

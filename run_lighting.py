@@ -37,7 +37,8 @@ def main(hparams:dict, trainer_kwargs:dict = {}, model_kwargs:dict = {}, dream_k
         save_checkpoint_callback = ModelCheckpoint( 
             save_top_k=1,
             monitor=hparams["save_tag_monitor"],
-            filename="model-{epoch:02d}-{val_acc:.3f}",
+            # filename="model-{epoch:02d}-{val_acc:.3f}",
+            filename="model",
         )
         trainer_callbacks.append(save_checkpoint_callback)
 
@@ -50,18 +51,10 @@ def main(hparams:dict, trainer_kwargs:dict = {}, model_kwargs:dict = {}, dream_k
 
     if "Cifar" in model_kwargs["nn_arch"]:
         data = CIFARDataModule(num_workers=0, batch_size=hparams["batch_size"])
-        if "Cifar-nobn" in model_kwargs["nn_arch"]:
-            model = Cifar_nn_nobn
-        else:
-            model = Cifar_nn
-
+        model = None
     elif "Mnist" in model_kwargs["nn_arch"]:
         data = MNISTDataModule(num_workers=0, batch_size=hparams["batch_size"])
-        if "nobn" in model_kwargs["nn_arch"]:
-            model = Mnist_nn_nobn
-        else:
-            model = Mnist_nn
-            
+        model = None
 
     elif model_kwargs["nn_arch"] == "Fashion_mnist":
         data = F_MNISTDataModule(num_workers=0, batch_size=hparams["batch_size"])
@@ -102,7 +95,7 @@ if __name__ == '__main__':
 # Seeds models: 52 - 57 
 
     hyper_param = {
-        "model_identifier": "CIFAR/PGD/testdreamiterlimit",
+        "model_identifier": "CIFAR/PGD5/D_AT2_01",
         
         "version_nr": 0,
         "seed": 52,
@@ -127,30 +120,14 @@ if __name__ == '__main__':
         "opt_wd": 0
     }
 
-    # torch.linalg.vector_norm(torch.sub(_initial_other_logits, other_logits), ord=2)
-    def penalty_function_l2(new, old):
-        loss_value = torch.linalg.vector_norm(torch.sub(new, old), ord=2)
-        return loss_value
-
-    # elu function on diff
-    def penalty_function_elu(new, old):
-        loss_value = torch.functional.F.elu(torch.sub(new, old)).mean(dim=1)
-        return loss_value
-
     dream_params = {
-    "iterations": (16,),
-    "opt_lr":1e-3,
+        "iterations": (2,),
+        "opt_lr":1e-2,
 
     # "parametrization": "bound_hyperbolic",
-    # "limit_eps": 0.2,
-
-    # "penal_f": penalty_function_l2
-    # "penal_f": penalty_function_elu,
-    # "penal_factor":1.5,
     }
 
 
-    # _attack = fb.attacks.deepfool.LinfDeepFoolAttack(steps=25, candidates=3)
     # _attack = fb.attacks.FGSM(random_start=False)
 
     # Rel stepsize for up and down eps ball = 1/(0.5*steps) -> relative to epsilon
@@ -160,6 +137,7 @@ if __name__ == '__main__':
 
     # _attack = fb.attacks.carlini_wagner.L2CarliniWagnerAttack(binary_search_steps=1, steps=50, stepsize=0.02, initial_const=1, abort_early=True)
     # _attack = fb.attacks.carlini_wagner.L2CarliniWagnerAttack(steps=20, stepsize=0.1, binary_search_steps=1, initial_const=1e0)
+    
     # _attack = None
 
     main(hparams=hyper_param, trainer_kwargs=_trainer_arg, model_kwargs=model_params, dream_kwargs=dream_params, attack=_attack)

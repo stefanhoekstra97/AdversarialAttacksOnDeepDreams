@@ -36,27 +36,26 @@ from utils import rescale
 # Models to get validation results of.
 ### Identifier: model location
 model_list = {
-    # "base_model": "trained_models/MNIST/base_training/version_0/checkpoints/model-epoch=20-val_acc=0.994.ckpt",
+    "base_model": "trained_models/CIFAR/base/version_0/checkpoints/model.ckpt"
 
-    "base_adversarial_v0": "trained_models/MNIST/CW20-0.1/eps=4.2/base_adversarial/version_0/checkpoints/model-epoch=14-val_acc=0.994.ckpt",
-    "base_adversarial_v1": "trained_models/MNIST/CW20-0.1/eps=4.2/base_adversarial/version_1/checkpoints/model-epoch=30-val_acc=0.994.ckpt",
-    "base_adversarial_v2": "trained_models/MNIST/CW20-0.1/eps=4.2/base_adversarial/version_2/checkpoints/model-epoch=26-val_acc=0.994.ckpt",
+    # "base_adversarial_v0": "ckptloc",
+    # "base_adversarial_v1": "ckptloc",
+    # "base_adversarial_v2": "ckptloc",
 
-    "dream4itslr1e-1_v0": "trained_models/MNIST/CW20-0.1/eps=4.2/dream4itslr1e-1/version_0/checkpoints/model-epoch=48-val_acc=0.991.ckpt",
-    "dream4itslr1e-1_v1": "trained_models/MNIST/CW20-0.1/eps=4.2/dream4itslr1e-1/version_1/checkpoints/model-epoch=49-val_acc=0.991.ckpt",
-    "dream4itslr1e-1_v2": "trained_models/MNIST/CW20-0.1/eps=4.2/dream4itslr1e-1/version_2/checkpoints/model-epoch=48-val_acc=0.992.ckpt",
+    # "dream4itslr1e-1_v0": "ckptloc",
+    # "dream4itslr1e-1_v1": "ckptloc",
+    # "dream4itslr1e-1_v2": "ckptloc",
+    # "dream4itslr1e-2_v0": "ckptloc",
+    # "dream4itslr1e-2_v1": "ckptloc",
+    # "dream4itslr1e-2_v2": "ckptloc",
 
-    "dream4itslr1e-2_v0": "trained_models/MNIST/CW20-0.1/eps=4.2/dream4itslr1e-2/version_0/checkpoints/model-epoch=45-val_acc=0.994.ckpt",
-    "dream4itslr1e-2_v1": "trained_models/MNIST/CW20-0.1/eps=4.2/dream4itslr1e-2/version_1/checkpoints/model-epoch=30-val_acc=0.995.ckpt",
-    "dream4itslr1e-2_v2": "trained_models/MNIST/CW20-0.1/eps=4.2/dream4itslr1e-2/version_2/checkpoints/model-epoch=30-val_acc=0.994.ckpt",
-    
-    "dream8itslr1e-1_v0": "trained_models/MNIST/CW20-0.1/eps=4.2/dream8itslr1e-1/version_0/checkpoints/model-epoch=45-val_acc=0.975.ckpt",
-    "dream8itslr1e-1_v1": "trained_models/MNIST/CW20-0.1/eps=4.2/dream8itslr1e-1/version_1/checkpoints/model-epoch=45-val_acc=0.977.ckpt",
-    "dream8itslr1e-1_v2": "trained_models/MNIST/CW20-0.1/eps=4.2/dream8itslr1e-1/version_2/checkpoints/model-epoch=49-val_acc=0.984.ckpt",
-    
-    "dream8itslr1e-2_v0": "trained_models/MNIST/CW20-0.1/eps=4.2/dream8itslr1e-2/version_0/checkpoints/model-epoch=30-val_acc=0.993.ckpt",
-    "dream8itslr1e-2_v1": "trained_models/MNIST/CW20-0.1/eps=4.2/dream8itslr1e-2/version_1/checkpoints/model-epoch=32-val_acc=0.994.ckpt",
-    "dream8itslr1e-2_v2": "trained_models/MNIST/CW20-0.1/eps=4.2/dream8itslr1e-2/version_2/checkpoints/model-epoch=42-val_acc=0.995.ckpt"
+    # "dream8itslr1e-1_v0": "ckptloc",
+    # "dream8itslr1e-1_v1": "ckptloc",
+    # "dream8itslr1e-1_v2": "ckptloc",
+
+    # "dream8itslr1e-2_v0": "ckptloc",
+    # "dream8itslr1e-2_v1": "ckptloc",
+    # "dream8itslr1e-2_v2": "ckptloc"
     
 }
 
