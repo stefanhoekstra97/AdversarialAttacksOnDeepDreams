@@ -127,3 +127,27 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+assortedNotebooks/*
+notebooks/plot_imgs/CIFAR_CW20-0.1_valresults.pdf
+notebooks/plot_imgs/CIFAR_FGSM-RS_valresults.pdf
+notebooks/plot_imgs/CIFAR_PGD5-0.4_valresults.pdf
+notebooks/plot_imgs/logits_violinplot_airplanes.pdf
+notebooks/plot_imgs/logits_violinplot_birds.pdf
+notebooks/plot_imgs/logits_violinplot_cars.pdf
+notebooks/plot_imgs/logits_violinplot_cats.pdf
+notebooks/plot_imgs/logits_violinplot_deer.pdf
+notebooks/plot_imgs/logits_violinplot_dogs.pdf
+notebooks/plot_imgs/logits_violinplot_frogs.pdf
+notebooks/plot_imgs/logits_violinplot_horses.pdf
+notebooks/plot_imgs/logits_violinplot_ships.pdf
+notebooks/plot_imgs/logits_violinplot_trucks.pdf
+notebooks/plot_imgs/MNIST_CW20-0.1_valresults.pdf
+notebooks/plot_imgs/MNIST_FGSM-RS_valresults.pdf
+notebooks/plot_imgs/MNIST_PGD5-0.4_valresults.pdf
+notebooks/plot_imgs/test/CIFAR_CW20-0.1_valresults.pdf
+notebooks/plot_imgs/test/CIFAR_FGSM-RS_valresults.pdf
+notebooks/plot_imgs/test/CIFAR_PGD5-0.4_valresults.pdf
+notebooks/plot_imgs/test/MNIST_CW20-0.1_valresults.pdf
+notebooks/plot_imgs/test/MNIST_FGSM-RS_valresults.pdf
+notebooks/plot_imgs/test/MNIST_PGD5-0.4_valresults.pdf
