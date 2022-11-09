@@ -1,0 +1,67 @@
+  # Examples of how to use the hparams_models.json file to run multiple training experiments sequentially.
+  # Starting with base model for CIFAR, using early stopping on the log value of val_loss:
+
+  "CIFAR/base_model":{	
+
+    "hparams":{
+      "nn_arch": "Cifar",
+      "early_stopping": true,
+      "early_stop_monitor": "val_loss",
+      "batch_size": 256,
+      "max_num_epoch": 50
+    },
+
+    "model_params": {
+      "nn_arch": "Cifar",
+      "with_adversarial": false
+    },
+      
+    "dream_params": {
+    }
+  }
+
+
+# AT on model, using epsilon 0.03:
+
+  "CIFAR/base_model":{	
+
+    "hparams":{
+      "nn_arch": "Cifar",
+      "early_stopping": true,
+      "early_stop_monitor": "val_loss",
+      "batch_size": 256,
+      "max_num_epoch": 50
+    },
+
+    "model_params": {
+      "nn_arch": "Cifar",
+      "with_adversarial": true,
+      "adv_eps": 0.03
+    },
+    "dream_params": {
+    }
+  }
+
+# Base model which will be trained with adversarial attacks, epsilon 0.03:
+
+  "CIFAR/base_model":{	
+
+    "hparams":{
+      "nn_arch": "Cifar",
+      "early_stopping": true,
+      "early_stop_monitor": "val_loss",
+      "batch_size": 256,
+      "max_num_epoch": 50
+    },
+
+    "model_params": {
+      "nn_arch": "Cifar",
+      "with_adversarial": true,
+      "adv_eps": 0.03
+    },
+    "dream_params": {
+    }
+  }
+
+
+

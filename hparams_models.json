@@ -1,0 +1,43 @@
+{
+  "clean_training_bn":{	
+    "hparams":{
+      "early_stopping": true,
+      "early_stop_monitor": "val_loss",
+      "save_tag_monitor": "val_loss",
+      "batch_size": 256,
+      "max_num_epoch": 50
+    },
+
+    "model_params": {
+      "nn_arch": "Mnist",
+      "with_adversarial": false,
+      "li_eps" : 0.3,
+      "l2_eps" : 4.2,
+      "opt_lrs": 1e-4,
+      "opt_wd": 0
+    },
+    "dream_params": {
+    }
+  },
+
+  "clean_training_nobn":{	
+    "hparams":{
+      "early_stopping": true,
+      "early_stop_monitor": "val_loss",
+      "save_tag_monitor": "val_loss",
+      "batch_size": 256,
+      "max_num_epoch": 50
+    },
+
+    "model_params": {
+      "nn_arch": "Mnist-nobn",
+      "with_adversarial": false,
+      "li_eps" : 0.3,
+      "l2_eps" : 4.2,
+      "opt_lrs": 1e-4,
+      "opt_wd": 0
+    },
+    "dream_params": {
+    }
+  }
+}
